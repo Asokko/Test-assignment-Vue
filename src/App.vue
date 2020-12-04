@@ -1,24 +1,48 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+   <v-app id="app">
+    <v-navigation-drawer
+      v-model="drawer"
+      app
+    >
+      <v-list>
+        <v-list-item v-for="item in items" :key="item.title" :to="item.link">
+          <v-list-item-content>
+            <v-list-item-title>{{item.title}}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
+
+    <v-app-bar app>
+      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+
+      <v-toolbar-title>Application</v-toolbar-title>
+    </v-app-bar>
+
+     <v-main>
+       <v-container fluid>
+        <router-view />
+        </v-container>
+     </v-main>
+  </v-app>
+    
 </template>
-
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
+ export default {
+   name: 'App',
+   data() { 
+     return{items:[
+       {title:'Planets', link:'/planets'},
+       {title:'Statistics', link:'/statistics'}
+     ],
+     drawer: null}
+      }
   }
-}
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+<style scoped>
+  #app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
